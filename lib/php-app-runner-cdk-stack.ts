@@ -21,6 +21,12 @@ export class PhpAppRunnerCdkStack extends cdk.Stack {
        default: 'wpdbuser'
     })
     
+    const dockerImage = new cdk.CfnParameter(this, 'repository-url', {
+      type: 'String',
+      description: 'The location of the Docker Image',
+      default: 'public.ecr.aws/bitnami/wordpress-nginx:latest'
+    })
+    
     const vpc = new ec2.Vpc(this, 'my-cdk-vpc', {
       cidr: '10.0.0.0/16',
       vpcName: 'wordpress-vpc',
@@ -113,10 +119,10 @@ export class PhpAppRunnerCdkStack extends cdk.Stack {
         },
       },
       sourceConfiguration: {
-        autoDeploymentsEnabled: false,
+        autoDeploymentsEnabled: !(dockerImage.value.toString().indexOf('public.ecr') > -1),
         imageRepository: {
-          imageIdentifier: 'public.ecr.aws/bitnami/wordpress-nginx:latest',
-          imageRepositoryType: 'ECR_PUBLIC',
+          imageIdentifier: dockerImage.value.toString(),
+          imageRepositoryType: dockerImage.value.toString().indexOf('public.ecr') > -1 ? 'ECR_PUBLIC' : 'ECR_PRIVATE',
           imageConfiguration: {
             port: '8080',
             runtimeEnvironmentVariables: [
