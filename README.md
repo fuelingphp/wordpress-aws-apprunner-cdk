@@ -1,6 +1,8 @@
 # AWS App Runner with WordPress CloudFormation CDK Skeleton
 
-This project will deploy a wordpress docker image into an AWS App Runner instance.
+Deploy a WordPress app into AWS App Runner. App Runner is a container service provided by AWS that is similar to Heroku. You don't have to worry about load balancers, ssl certs and servers. Just build out your WordPress app and deploy.
+
+You will need to deploy a WordPress docker version of your app to use this service. We do have a template that is available for you to use if needed.
 It creates all the necessary resources to get the application running.
 
 
@@ -21,3 +23,7 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 2. Run `cdk synth` to create the cloudformation content
 3. Run `cdk deploy` to deploy the stack into your AWS environment.
 
+
+## Limitations
+- **Secret Environment Variables** App Runner will show any environment variables as readable in the App Runner console. There is an active ticket to connect into secrets manager to prevent displaying private content on the AWS console.
+- **Plugin & Theme Management** You will need to manage your plugins & themes via composer and must avoid using the wordpress dashboard to upload or add plugins / themes.
