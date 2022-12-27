@@ -27,3 +27,4 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 ## Limitations
 - **Secret Environment Variables** App Runner will show any environment variables as readable in the App Runner console. There is an active ticket to connect into secrets manager to prevent displaying private content on the AWS console.
 - **Plugin & Theme Management** You will need to manage your plugins & themes via composer and must avoid using the wordpress dashboard to upload or add plugins / themes.
+- **Upload Data** You'll need to use a CDN / Storage plugin to manage your uploaded content. This is good practice and there are many plugins that can help with this requirement.
